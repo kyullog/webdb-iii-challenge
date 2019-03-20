@@ -1,9 +1,12 @@
 const express = require("express");
 const helmet = require("helmet");
+const knex = require("knex");
+const knexConfig = require("./data/knexfile");
+const db = knex(knexConfig.development);
 
 const server = express();
-const helmet = helmet();
+const protection = helmet();
 const parser = express.json();
-server.use(helmet, parser);
+server.use(protection, parser);
 
 module.exports = server;
