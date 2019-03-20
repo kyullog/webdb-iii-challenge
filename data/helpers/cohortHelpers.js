@@ -2,10 +2,10 @@ const db = require("../dbConfig.js");
 
 module.exports = {
   get,
-  getById
+  getById,
   // getStudentsByCohort,
   // update,
-  // insert,
+  insert
   // remove
 };
 
@@ -22,3 +22,11 @@ function getById(id) {
 // function getStudentsByCohort(id) {
 //   return db.from('students')
 // }
+
+function insert(cohort) {
+  return db("cohorts")
+    .insert(cohort)
+    .then(ids => {
+      return getById(ids[0]);
+    });
+}
