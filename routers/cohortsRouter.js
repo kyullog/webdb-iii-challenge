@@ -36,6 +36,25 @@ cohortsRouter.post("/", async (req, res) => {
   }
 });
 
+cohortsRouter.put("/:id", async (req, res) => {
+  const id = req.params.id;
+  const name = req.body;
+  try {
+    const updated = await db.update(id, name);
+    if (updated) {
+      res.status(201).json({ message: "Cohort was updated" });
+    } else {
+      res
+        .status(400)
+        .json({
+          error: "Please make sure you are using the correct id and name field"
+        });
+    }
+  } catch {
+    res.status(500).json({ error: "There was a problem updating the cohort" });
+  }
+});
+
 cohortsRouter.delete("/:id", async (req, res) => {
   const id = req.params.id;
   try {
