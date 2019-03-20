@@ -2,18 +2,18 @@ const db = require("../dbConfig.js");
 
 module.exports = {
   get,
-  getById,
-  getStudentsByCohort,
-  update,
-  insert,
-  remove
+  getById
+  // getStudentsByCohort,
+  // update,
+  // insert,
+  // remove
 };
 
 function get() {
   return db("cohorts");
 }
 
-function getByID(id) {
+function getById(id) {
   return db("cohorts")
     .where({ id })
     .first();
