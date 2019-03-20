@@ -1,6 +1,9 @@
 const express = require("express");
 const cohortsRouter = express.Router();
 const db = require("../data/helpers/cohortHelpers.js");
+const uppercaser = require("../middleware.js");
+
+cohortsRouter.use(uppercaser);
 
 cohortsRouter.get("/", async (req, res) => {
   try {
