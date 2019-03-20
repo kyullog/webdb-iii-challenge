@@ -36,4 +36,14 @@ cohortsRouter.post("/", async (req, res) => {
   }
 });
 
+cohortsRouter.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const deleted = await db.remove(id);
+    res.status(201).json({ message: "Cohort deleted" });
+  } catch {
+    res.status(500).json({ error: "There was a problem deleting your cohort" });
+  }
+});
+
 module.exports = cohortsRouter;
