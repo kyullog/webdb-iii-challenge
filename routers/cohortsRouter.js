@@ -26,6 +26,19 @@ cohortsRouter.get("/:id", async (req, res) => {
   }
 });
 
+cohortsRouter.get("/:id/students", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const students = await db.getStudentsByCohort(id);
+    res.status(200).json(students);
+  } catch (err) {
+    console.log(err);
+    res
+      .status(500)
+      .json({ error: "An error occured while retrieving the cohort" });
+  }
+});
+
 cohortsRouter.post("/", async (req, res) => {
   const addition = req.body;
   try {
@@ -44,11 +57,9 @@ cohortsRouter.put("/:id", async (req, res) => {
     if (updated) {
       res.status(201).json({ message: "Cohort was updated" });
     } else {
-      res
-        .status(400)
-        .json({
-          error: "Please make sure you are using the correct id and name field"
-        });
+      res.status(400).json({
+        error: "Please make sure you are using the correct id and name field"
+      });
     }
   } catch {
     res.status(500).json({ error: "There was a problem updating the cohort" });
