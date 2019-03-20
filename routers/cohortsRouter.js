@@ -26,4 +26,14 @@ cohortsRouter.get("/:id", async (req, res) => {
   }
 });
 
+cohortsRouter.post("/", async (req, res) => {
+  const addition = req.body;
+  try {
+    const success = await db.insert(addition);
+    res.status(201).json(success);
+  } catch {
+    res.status(500).json({ error: "There was a problem adding your cohort" });
+  }
+});
+
 module.exports = cohortsRouter;
