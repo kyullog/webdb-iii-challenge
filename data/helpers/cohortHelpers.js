@@ -3,7 +3,7 @@ const db = require("../dbConfig.js");
 module.exports = {
   get,
   getById,
-  // getStudentsByCohort,
+  getStudentsByCohort,
   update,
   insert,
   remove
@@ -19,9 +19,13 @@ function getById(id) {
     .first();
 }
 
-// function getStudentsByCohort(id) {
-//   return db.from('students')
-// }
+function getStudentsByCohort(id) {
+  return db
+    .select("students.name")
+    .from("students")
+    .where({ cohort_id: id })
+    .innerJoin("cohorts", "students.cohort_id", "cohorts.id");
+}
 
 function update(id, newName) {
   return db("cohorts")
