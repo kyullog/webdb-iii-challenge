@@ -34,4 +34,17 @@ studentsRouter.post("/", async (req, res) => {
   }
 });
 
+studentsRouter.put("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updated = await db.update(id, req.body);
+    res.status(201).json(updated);
+  } catch {
+    console.log(err);
+    res
+      .status(500)
+      .json({ error: "There was a problem updating the student entry" });
+  }
+});
+
 module.exports = studentsRouter;

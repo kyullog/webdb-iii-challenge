@@ -3,7 +3,8 @@ const db = require("../dbConfig.js");
 module.exports = {
   get,
   getById,
-  insert
+  insert,
+  update
 };
 
 function get() {
@@ -26,4 +27,10 @@ function insert(student) {
     .then(ids => {
       return getById(ids[0]);
     });
+}
+
+function update(id, student) {
+  return db("students")
+    .update(student)
+    .where({ id });
 }
