@@ -47,4 +47,14 @@ studentsRouter.put("/:id", async (req, res) => {
   }
 });
 
+studentsRouter.delete("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const success = await db.remove(id);
+    res.status(201).json(success);
+  } catch (err) {
+    res.status(500).json({ error: "There was a problem deleting the student" });
+  }
+});
+
 module.exports = studentsRouter;
